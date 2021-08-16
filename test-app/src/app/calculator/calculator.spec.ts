@@ -11,7 +11,7 @@ describe("A Calculator", () => {
                 n2 : number = 200;
 
             //expected result
-            const expectedResult : number = 400;
+            const expectedResult : number = 300;
 
         //Act
             //actual operation
@@ -21,6 +21,6 @@ describe("A Calculator", () => {
         //Assert
             //verify the outcome of the operation
             expect(actualResult).toBe(expectedResult);
-            
+       
     });
 });
