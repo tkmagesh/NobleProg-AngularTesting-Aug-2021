@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing'
 import { Greeter } from './greeter'
 import { TimeService } from './time.service'
 
@@ -23,7 +24,7 @@ export class FakeTimeServiceForAfternoon {
     }
 } */
 
-describe("The Greeter", () => {
+xdescribe("The Greeter", () => {
     it("Should gree the user with 'good morning' when greeted before noon", () => {
         //arrange
         //const fakeTimeService = new FakeTimeServiceForMorning()
@@ -61,4 +62,55 @@ describe("The Greeter", () => {
         //assert
         expect(actualResult).toBe(expectedResult)
     })
+})
+
+fdescribe("The New Greeter", () => {
+    
+
+    beforeEach(() => {
+        const fakeTimeService = jasmine.createSpyObj("TimeService", ['getCurrent'])
+        TestBed.configureTestingModule({
+            providers: [
+                Greeter,
+                {provide : TimeService, useValue : fakeTimeService}
+            ]
+        });
+    });
+
+    it("Should greet the user with 'good morning' when greeted before noon", () => {
+        //arrange
+        const fakeTimeService : any = TestBed.inject(TimeService)
+        const dateWithMorningTime = new Date(2021, 7, 16, 9, 0,0)    
+        fakeTimeService.getCurrent.and.returnValue(dateWithMorningTime)
+        
+
+        const greeter = TestBed.inject(Greeter)
+        const userName = 'Magesh'
+        const expectedResult = 'Hi Magesh, Have a good morning!'
+        //act
+
+        const actualResult = greeter.greet(userName)
+
+        //assert
+        expect(actualResult).toBe(expectedResult)
+    })
+
+    it("Should greet the user with 'good day' when greeted after noon", () => {
+        //arrange
+        const fakeTimeService : any = TestBed.inject(TimeService)
+        const dateWithAfternoonTime = new Date(2021, 7, 16, 15, 0,0)    
+        fakeTimeService.getCurrent.and.returnValue(dateWithAfternoonTime)
+        
+
+        const greeter = TestBed.inject(Greeter)
+        const userName = 'Magesh'
+        const expectedResult = 'Hi Magesh, Have a good day!'
+        //act
+
+        const actualResult = greeter.greet(userName)
+
+        //assert
+        expect(actualResult).toBe(expectedResult)
+    })
+
 })

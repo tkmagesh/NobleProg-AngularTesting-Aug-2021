@@ -23,3 +23,7 @@ Jasmine (BDD)
         not
 
 
+DIP
+    Dependencies should not be created and used in the same place
+    Creation should be separated from the usage
+    
