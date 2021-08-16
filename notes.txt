@@ -1,0 +1,25 @@
+Unit Testing
+    Entities are tested in isolation from their dependencies.
+    No backend calls to the server
+    No file system access
+
+
+Greeter.ts
+    Greet(userName)
+        before noon
+            => Hi [username], Have a good morning!
+        after noon
+            => Hi [username], Have a good day!
+
+
+Jasmine (BDD)
+    describe (fdescribe, xdescribe)
+    it (fit, xit)
+    expect
+    matchers
+        toBe
+        toEqual
+        toMatch
+        not
+
+
