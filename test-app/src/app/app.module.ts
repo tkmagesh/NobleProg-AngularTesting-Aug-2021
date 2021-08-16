@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TimeService } from './greeter/time.service'
+import { ElapsedPipe } from './pipes/elapsed.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ElapsedPipe
   ],
   imports: [
     BrowserModule

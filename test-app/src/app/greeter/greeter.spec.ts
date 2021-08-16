@@ -65,10 +65,10 @@ xdescribe("The Greeter", () => {
 })
 
 fdescribe("The New Greeter", () => {
+    let fakeTimeService : any;
     
-
     beforeEach(() => {
-        const fakeTimeService = jasmine.createSpyObj("TimeService", ['getCurrent'])
+        fakeTimeService = jasmine.createSpyObj("TimeService", ['getCurrent'])
         TestBed.configureTestingModule({
             providers: [
                 Greeter,
@@ -79,7 +79,7 @@ fdescribe("The New Greeter", () => {
 
     it("Should greet the user with 'good morning' when greeted before noon", () => {
         //arrange
-        const fakeTimeService : any = TestBed.inject(TimeService)
+        //const fakeTimeService : any = TestBed.inject(TimeService)
         const dateWithMorningTime = new Date(2021, 7, 16, 9, 0,0)    
         fakeTimeService.getCurrent.and.returnValue(dateWithMorningTime)
         

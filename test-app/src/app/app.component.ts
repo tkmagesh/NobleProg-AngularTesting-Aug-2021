@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'test-app';
+  appCreated = new Date(2021,7,12,9,0,0)
 }
