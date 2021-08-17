@@ -12,6 +12,7 @@ export class BugOperationsService{
     constructor(private bugApi : BugApiService){
 
     }
+    
     createNew(bugName : string) {
         const newBug : Bug = {
             id : 0,
