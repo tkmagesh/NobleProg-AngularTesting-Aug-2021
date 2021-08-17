@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { GreeterComponent } from "./greeter.component"
+import { Greeter } from "./greeter.service";
+import { TimeService } from "./time.service";
 
 describe("Greeter Component", () => {
     let fixture : ComponentFixture<GreeterComponent>;
@@ -7,7 +9,8 @@ describe("Greeter Component", () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [GreeterComponent]
+            declarations: [GreeterComponent],
+            providers: [Greeter, TimeService]
         });
 
         fixture = TestBed.createComponent(GreeterComponent);
@@ -28,19 +31,38 @@ describe("Greeter Component", () => {
 
     it("should generate the message when greeted", () => {
         greeterComponent.userName = "John";
+        const greeter = TestBed.inject(Greeter);
+        spyOn(greeter, 'greet').and.returnValue('test message')
         greeterComponent.onGreetClick();
-        expect(greeterComponent.greetMessage).toBe("Hello, John!");
+        expect(greeterComponent.greetMessage).toBe('test message');
     });
 
     it("should display the message when greeted with a name", () => {
         greeterComponent.userName = "John";
+        const greeter = TestBed.inject(Greeter);
+        spyOn(greeter, 'greet').and.returnValue('test message')
         greeterComponent.onGreetClick();
         const el = fixture.debugElement;
         const nativeElement = fixture.nativeElement;
         fixture.detectChanges();
         const greetMessageElement = nativeElement.querySelector(".message")
-        expect(greetMessageElement.textContent).toBe("Hello, John!");
+        expect(greetMessageElement.textContent).toBe("test message");
     });
 
+    it("should display a greet message for the username entered in the textbox", () => {
+        const nativeElement = fixture.nativeElement;
+        const userNameTextBox = nativeElement.querySelector("#txtUserName");
+        userNameTextBox.value = "John";
+        const greeter = TestBed.inject(Greeter);
+        spyOn(greeter, 'greet').and.returnValue('test message')
+        userNameTextBox.dispatchEvent(new Event("input"));
+        
+        const btnGreet = nativeElement.querySelector("input[value='Greet']");
+        btnGreet.dispatchEvent(new Event("click"));
+
+        fixture.detectChanges();
+        const greetMessageElement = nativeElement.querySelector(".message")
+        expect(greetMessageElement.textContent).toBe("test message");
+    })
    
 })

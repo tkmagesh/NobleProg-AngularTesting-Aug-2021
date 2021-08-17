@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Greeter } from "./greeter.service";
 
 @Component({
     selector: "app-greeter",
@@ -16,7 +17,10 @@ export class GreeterComponent{
     userName : string = ''
     greetMessage : string = ''
 
+    constructor(private greeterService : Greeter){
+
+    }
     onGreetClick(){
-        this.greetMessage = `Hello, ${this.userName}!`
+        this.greetMessage = this.greeterService.greet(this.userName);
     }
 }
