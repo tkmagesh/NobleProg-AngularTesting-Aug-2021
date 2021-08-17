@@ -88,5 +88,28 @@ fdescribe("Bug API service", () => {
         req.flush({...existingBugData});
         
         httpTestingController.verify();
+    });
+
+    it("should throw an error when deleting a bug that doesn't exist", () => {
+        const bugToRemove : Bug = {
+            id : 300,
+            name : 'Dummy Bug',
+            isClosed : false,
+            createdAt : new Date()
+        };
+
+        bugApi
+            .remove(bugToRemove)
+            .subscribe(() => {
+                fail("There should not have been a bug to remove")
+            }, err => {
+                expect(err).toBeTruthy('failed to throw an error when deleting a bug that doesn\'t exist')
+                expect(err.error.type).toBe('Bug does not exist')
+            });
+
+        const req = httpTestingController.expectOne('http://localhost:3000/bugs/300');
+        expect(req.request.method).toBe('DELETE');
+        req.error(new ErrorEvent("Bug does not exist"))
+        httpTestingController.verify();
     })
 })
