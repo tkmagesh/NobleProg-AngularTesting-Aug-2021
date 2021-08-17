@@ -42,5 +42,51 @@ fdescribe("Bug API service", () => {
         req.flush(mockData.bugs);
 
         httpTestingController.verify();
+    });
+
+    it("should be able to save a new bug", () => {
+        const newBugData : Bug = {
+            id : 0,
+            name : 'Test bug',
+            isClosed : false,
+            createdAt : new Date()
+        }
+
+        bugApi
+            .save(newBugData)
+            .subscribe(newBug => {
+                expect(newBug).toBeTruthy('failed to save new bug')
+                expect(newBug.id).toBe(1, 'failed to save new bug')
+            });
+
+        const req = httpTestingController.expectOne('http://localhost:3000/bugs');
+        expect(req.request.method).toBe('POST')
+        //expect(req.request.body).toEqual(newBugData)
+        req.flush({ ...newBugData, id : 1 });
+
+        httpTestingController.verify();
+    })
+
+    it("should be able to save an existing bug", () => {
+        const existingBugData : Bug = {
+            id : 1,
+            name : 'Test bug',
+            isClosed : false,
+            createdAt : new Date()
+        }
+
+        bugApi
+            .save(existingBugData)
+            .subscribe(updatedBug => {
+                expect(updatedBug).toBeTruthy('failed to save new bug')
+                expect(updatedBug.id).toBe(1, 'failed to save new bug')
+            });
+
+        const req = httpTestingController.expectOne('http://localhost:3000/bugs/1');
+        expect(req.request.method).toBe('PUT')
+        //expect(req.request.body).toEqual(newBugData)
+        req.flush({...existingBugData});
+        
+        httpTestingController.verify();
     })
 })
