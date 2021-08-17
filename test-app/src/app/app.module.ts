@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { TimeService } from './greeter/time.service'
 import { ElapsedPipe } from './pipes/elapsed.pipe';
+import * as moment from 'moment';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { ElapsedPipe } from './pipes/elapsed.pipe';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    { provide : 'MOMENT', useValue: moment }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

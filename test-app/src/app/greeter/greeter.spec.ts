@@ -64,7 +64,7 @@ xdescribe("The Greeter", () => {
     })
 })
 
-fdescribe("The New Greeter", () => {
+describe("The New Greeter", () => {
     let fakeTimeService : any;
     
     beforeEach(() => {
