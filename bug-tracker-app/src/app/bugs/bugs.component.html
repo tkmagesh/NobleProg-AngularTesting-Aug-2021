@@ -1,0 +1,30 @@
+<h3>Bugs</h3>
+<app-bug-stats [data]="bugOperations.bugs"></app-bug-stats>
+<section class="sort">
+    <label for="">Order By :</label>
+    <select (change)="sortAttrName = $any($event.target).value">
+        <option value="">--- Select ---</option>
+        <option value="name">Name</option>
+        <option value="isClosed">Status</option>
+        <option value="createdAt">Created At</option>
+    </select>
+    <label for="">Descending ? :</label>
+    <input type="checkbox" (change)="sortByDesc = $any($event.target).checked">
+</section>
+<app-bug-edit (onAddNewBug)="onNewBugCreation($event)"></app-bug-edit>
+<section class="list">
+    <ol>
+        <li *ngFor="let bug of bugOperations.bugs | sort:sortAttrName:sortByDesc">
+            <span 
+                class="bugname" 
+                [ngClass]="{closed : bug.isClosed}"
+                (click)="onBugNameClick(bug)"
+            >
+                {{bug.name | trimText}}
+            </span>
+            <div class="datetime">{{bug.createdAt | elapsed}}</div>
+            <input type="button" value="Remove" (click)="onRemoveClick(bug)">
+        </li>
+    </ol>
+    <input type="button" value="Remove Closed" (click)="onRemoveClosedClick()">
+</section>
