@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { TimeService } from './greeter/time.service'
 import { ElapsedPipe } from './pipes/elapsed.pipe';
 import * as moment from 'moment';
+import { GreeterComponent } from './greeter/greeter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ElapsedPipe
+    ElapsedPipe,
+    GreeterComponent
   ],
   imports: [
     BrowserModule

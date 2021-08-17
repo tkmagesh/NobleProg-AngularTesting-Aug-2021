@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { Greeter } from './greeter'
+import { Greeter } from './greeter.service'
 import { TimeService } from './time.service'
 
 /* 
@@ -64,7 +64,7 @@ xdescribe("The Greeter", () => {
     })
 })
 
-describe("The New Greeter", () => {
+xdescribe("The New Greeter", () => {
     let fakeTimeService : any;
     
     beforeEach(() => {

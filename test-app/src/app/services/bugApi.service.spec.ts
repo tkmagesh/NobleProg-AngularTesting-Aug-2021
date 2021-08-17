@@ -4,7 +4,7 @@ import { BugApi } from './bugApi.service'
 import mockData from './mock-data'
 import { Bug } from '../models/bug'
 
-fdescribe("Bug API service", () => {
+xdescribe("Bug API service", () => {
     let bugApi : BugApi;
     let httpTestingController : HttpTestingController;
 
@@ -18,6 +18,11 @@ fdescribe("Bug API service", () => {
         bugApi = TestBed.inject(BugApi)
         httpTestingController = TestBed.inject(HttpTestingController);
     });
+
+    afterEach(() => {
+        httpTestingController.verify();
+    });
+
 
     it("should be able to created an instance", () => {
         expect(bugApi).toBeTruthy('failed to create an instance of the service')
@@ -41,7 +46,7 @@ fdescribe("Bug API service", () => {
         
         req.flush(mockData.bugs);
 
-        httpTestingController.verify();
+        
     });
 
     it("should be able to save a new bug", () => {
@@ -64,7 +69,7 @@ fdescribe("Bug API service", () => {
         //expect(req.request.body).toEqual(newBugData)
         req.flush({ ...newBugData, id : 1 });
 
-        httpTestingController.verify();
+       
     })
 
     it("should be able to save an existing bug", () => {
@@ -87,7 +92,7 @@ fdescribe("Bug API service", () => {
         //expect(req.request.body).toEqual(newBugData)
         req.flush({...existingBugData});
         
-        httpTestingController.verify();
+       
     });
 
     it("should throw an error when deleting a bug that doesn't exist", () => {
@@ -110,6 +115,6 @@ fdescribe("Bug API service", () => {
         const req = httpTestingController.expectOne('http://localhost:3000/bugs/300');
         expect(req.request.method).toBe('DELETE');
         req.error(new ErrorEvent("Bug does not exist"))
-        httpTestingController.verify();
+        
     })
 })
