@@ -6,8 +6,8 @@ import { Component } from "@angular/core";
         <h1>Greeter</h1>
         <hr>
         <label for="">User Name :</label>
-        <input type="text" name="" id="">
-        <input type="button" value="Greet">
+        <input type="text" name="" id="txtUserName" (input)="userName = $any($event.target).value">
+        <input type="button" value="Greet" (click)="onGreetClick()">
         <div class="message">{{greetMessage}}</div>
     `,
     styleUrls : ['greeter.component.css']

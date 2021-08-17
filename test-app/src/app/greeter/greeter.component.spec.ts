@@ -40,5 +40,7 @@ describe("Greeter Component", () => {
         fixture.detectChanges();
         const greetMessageElement = nativeElement.querySelector(".message")
         expect(greetMessageElement.textContent).toBe("Hello, John!");
-    })
+    });
+
+   
 })
