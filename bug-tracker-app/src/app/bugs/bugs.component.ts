@@ -10,49 +10,48 @@ import { BugOperationsService } from "./services/bugOperations.service";
 })
 export class BugsComponent implements OnInit{
     
-    sortAttrName : string = '';
-    sortByDesc : boolean = false;
+    sortAttr : string = '';
+    sortDesc : boolean = false;
+
+    bugs : Bug[] = [];
     
     constructor( public bugOperations : BugOperationsService){
         
     }
     
     ngOnInit(): void {
-        this.bugOperations.loadBugs();
-    }
+    //this.bugs = this.bugOperations.getAll();
+    this.bugOperations
+      .getAll()
+      .subscribe(bugs => this.bugs = bugs);
+  }
 
-    onNewBugCreation(newBugName : string){
-        this.bugOperations.createNew(newBugName)
-    }
+  onNewBugCreated(newBug : Bug){
+    this.bugs = [...this.bugs, newBug];
+  }
 
-    onRemoveClick(bugToRemove : Bug){
-        this.bugOperations.remove(bugToRemove)
-    }
+  onBugNameClick(bugToToggle : Bug){
+   this.bugOperations
+    .toggle(bugToToggle)
+    .subscribe(toggledBug => {
+      this.bugs = this.bugs.map(bug => bug.id === bugToToggle.id ? toggledBug : bug);
+    })
+   
+  }
 
-    onBugNameClick(bugToToggle : Bug){
-        this.bugOperations.toggle(bugToToggle)
-    }
+  onRemoveClick(bugToRemove : Bug){
+    this.bugOperations
+      .remove(bugToRemove)
+      .subscribe(() => {
+        this.bugs = this.bugs.filter(bug => bug.id !== bugToRemove.id);
+      })
+    
+  }
 
-    onRemoveClosedClick(){
-        this.bugOperations.removeClosed()
-    }
-
-    getClosedCount() : number {
-        /* 
-        let closedCount = 0;
-        for (let bug of this.bugs){
-            if (bug.isClosed)
-                closedCount++
-        }
-        return closedCount; 
-        */
-
-        //return this.bugs.reduce((result, bug) => bug.isClosed ? result + 1 : result, 0)
-        return 0;
-    }
-
-    /* getTrimText(data:string) : string {
-        console.log('getTrimText triggered')
-        return data.length <= 30 ? data : data.substr(0,30) + '...';
-    } */
+  onRemoveClosedClick(){
+    //this.bugs = this.bugs.filter(bug => !bug.isClosed)
+    this.bugs
+      .filter(bug => bug.isClosed)
+      .forEach(closedBug => this.onRemoveClick(closedBug));
+  }
 }

@@ -1,28 +1,27 @@
-<h3>Bugs</h3>
-<app-bug-stats [data]="bugOperations.bugs"></app-bug-stats>
+<app-bug-stats [data]="bugs"></app-bug-stats>
 <section class="sort">
     <label for="">Order By :</label>
-    <select (change)="sortAttrName = $any($event.target).value">
-        <option value="">--- Select ---</option>
+    <select (change)="sortAttr = $any($event.target).value">
+        <option value="">---Select---</option>
+        <option value="id">Id</option>
         <option value="name">Name</option>
         <option value="isClosed">Status</option>
-        <option value="createdAt">Created At</option>
+        <option value="createdAt">Created</option>
     </select>
     <label for="">Descending ? :</label>
-    <input type="checkbox" (change)="sortByDesc = $any($event.target).checked">
+    <input type="checkbox" (change)="sortDesc = $any($event.target).checked">
 </section>
-<app-bug-edit (onAddNewBug)="onNewBugCreation($event)"></app-bug-edit>
+<app-bug-edit (created)="onNewBugCreated($event)"></app-bug-edit>
 <section class="list">
     <ol>
-        <li *ngFor="let bug of bugOperations.bugs | sort:sortAttrName:sortByDesc">
-            <span 
-                class="bugname" 
-                [ngClass]="{closed : bug.isClosed}"
-                (click)="onBugNameClick(bug)"
-            >
+        <li *ngFor="let bug of ( bugs | sort:sortAttr:sortDesc )">
+            <span class="bugname" (click)="onBugNameClick(bug)" [ngClass]="{closed : bug.isClosed}" [title]="bug.name">
                 {{bug.name | trimText}}
             </span>
-            <div class="datetime">{{bug.createdAt | elapsed}}</div>
+            <small> [ {{bug.id}} ] </small>
+            <div class="datetime" [title]="bug.createdAt">
+                [ {{bug.createdAt}} ]
+            </div>
             <input type="button" value="Remove" (click)="onRemoveClick(bug)">
         </li>
     </ol>
