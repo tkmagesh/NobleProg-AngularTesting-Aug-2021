@@ -27,3 +27,12 @@ DIP
     Dependencies should not be created and used in the same place
     Creation should be separated from the usage
     
+Async Operations
+    An operation that is initiated but not waited for their completion
+
+
+MacroTasks (setTimeout, setInterval, setImmediate)
+    APIS for flushing macrotasks -> flush(), tick()
+
+MicroTasks (promise, observables, process.nextTick)
+    APIS for flushing microtasks -> flushMicrotasks()

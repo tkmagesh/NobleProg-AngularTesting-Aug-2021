@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script>
+        (function(){
+            
+            function doWork(onComplete){
+                var totalIterations = 1000,
+                    currentIteration = 0;
+
+                function oneIteration(){
+                    for(let i=0; i< (10000/totalIterations); i++)
+                        for(let j=0; j<10000; j++)
+                            for(let k=0; k<300; k++){
+
+                            }
+                    ++currentIteration;
+                    if (currentIteration < totalIterations){
+                        setTimeout(oneIteration)
+                    } else {
+                        console.log('Done');
+                        setTimeout(onComplete);
+                    }
+                }
+
+                oneIteration();
+            }
+
+            function displayMessage(msg){
+                document.getElementById("divMessages").innerHTML += msg + '<br/>';
+            }
+
+            function triggerWork(){
+                doWork(onWorkCompletion);
+            }
+
+            function onWorkCompletion(){
+                displayMessage('Work Completed!');
+            }
+            
+            function onBtnDoWorkClick(){
+                displayMessage('Work Started');
+                setTimeout(triggerWork)
+            }
+
+            function init(){
+                var btnDoWork = document.getElementById('btnDoWork');
+                btnDoWork.addEventListener('click', onBtnDoWorkClick);
+            }
+            window.addEventListener('DOMContentLoaded', init);
+        })();
+
+    </script>
+</head>
+<body>
+    <input type="text" name="" id="">
+    <input type="button" value="Do Work" id="btnDoWork">
+    <div id="divMessages"></div>
+</body>
+</html>

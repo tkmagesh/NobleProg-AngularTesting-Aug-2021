@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { BugApiService } from "./bugApi.service"
 import { bugs as mockBugs } from '../mock-data/bugs';
 
-describe("BugApi Service", () => {
+xdescribe("BugApi Service", () => {
     let httpTestingController : HttpTestingController, 
         bugApi : BugApiService;
 
