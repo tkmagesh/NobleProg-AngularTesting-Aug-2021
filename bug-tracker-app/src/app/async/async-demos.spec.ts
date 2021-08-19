@@ -1,4 +1,6 @@
 import { fakeAsync, flush, flushMicrotasks, tick } from "@angular/core/testing";
+import { of } from "rxjs";
+import { delay, switchMap } from 'rxjs/operators';
 
 fdescribe("Async Demos" , () => {
     function addSync(x : number,y : number ) : number {
@@ -147,7 +149,20 @@ fdescribe("Async Demos" , () => {
         expect(counter).toBe(14);
     }));
 
+    //TO DO:
+    it('async testing of observables', fakeAsync(() => {
+        let test = false;
 
+        const test$ = of(test).pipe(delay(2000), switchMap((test) => of(true)))
+
+        test$.subscribe((val) => {
+            test = val;
+            console.log('inside subscribe');
+        });
+        flush(); 
+        expect(test).toBeTrue();
+        console.log('end of function')
+    }));
 
 
 })

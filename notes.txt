@@ -36,3 +36,26 @@ MacroTasks (setTimeout, setInterval, setImmediate)
 
 MicroTasks (promise, observables, process.nextTick)
     APIS for flushing microtasks -> flushMicrotasks()
+
+
+E2E Testing
+    Selenium
+    Selenium WebDriver
+    Protractor
+    Cypress
+
+Cypress
+    Only one top level object (cy)
+    Fluent API (declarative)
+    Inbuilt test runner
+    Tests are executed in the browser (headless electron by default)
+    Record the screen shots & videos
+    Cypress Dashboard
+    CI
+    Data Driven tests
+    Extensible ()
+
+
+expect(result).toBe(expectedResult)
+assert.isEqual(result, expectedResult)
+result.should.be.equal(expectedResult)
